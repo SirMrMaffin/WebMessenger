@@ -3,7 +3,7 @@ using System;
 using WebMessengerMVC.Data;
 using WebMessengerMVC.Encoders;
 using WebMessengerMVC.Models;
-using WebMessengerMVC.Validators;
+using WebMessengerMVC.ViewModels;
 
 namespace WebMessengerMVC.Controllers
 {
@@ -21,34 +21,34 @@ namespace WebMessengerMVC.Controllers
         }
         
         [HttpPost]
-        public string Index(string login, string password, string repeatedPassword, string name, string surname, DateTime dateOfBirth)
+        public IActionResult Index(RegisterUserViewModel model)
         {
             try
             {
-                var hashedPassword = new ASCIIEncoder().Encode(password);
-                var hashedRepeatPassword = new ASCIIEncoder().Encode(repeatedPassword);
-
-                if (new PasswordValidator(hashedPassword, hashedRepeatPassword).Validate())
+                if (ModelState.IsValid)
                 {
+                    var hashedPassword = new ASCIIEncoder().Encode(model.Password);
+
                     _context.Users.Add(new User
                     {
-                        Login = login,
+                        Login = model.Login,
                         Password = hashedPassword,
-                        Name = name,
-                        Surname = surname,
-                        DateOfBirth = dateOfBirth
+                        Name = model.Name,
+                        Surname = model.Surname,
+                        DateOfBirth = model.DateOfBirth
                     });
                     _context.SaveChanges();
 
-                    return "Successfull registration";
+                    return View("SuccessfulRegistration");
                 }
                 else
                 {
-                    return "Failed registration\nCheck provided information";
+                    return View(model);
                 }
+                
             } catch (Exception e)
             {
-                return "An error occurred:\n" + e.Message;
+                return View("FailedRegistration" + e.Message);
             }
         }
     }

@@ -1,46 +1,59 @@
 ﻿@{
     ViewData["Title"] = "Registration Page";
 }
+@model RegisterUserViewModel
 
 <div>
     <h1 class="display-4">Registration Page</h1>
-    <form method="post">
+    <form asp-controller="Registration">
         <div class="form-group">
-            <label for="Login" class="col-md-2 control-label">Login:</label>
+            <label asp-for="Login" class="col-md-2 control-label" Login:></label>
             <div class="col-md-4">
-                <input type="text" id="Login" name="Login" class="form-control" />
+                <input asp-for="Login" type="text" class="form-control" />
+                <span asp-validation-for="Login"></span>
             </div>
         </div>
         <div class="form-group">
-            <label for="Password" class="col-md-2 control-label">Password:</label>
+            <label asp-for="Password" class="col-md-2 control-label">Password:</label>
             <div class="col-md-4">
-                <input type="password" id="Password" name="Password" class="form-control" />
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password"></span>
             </div>
         </div>
         <div class="form-group">
-            <label for="RepeatedPassword" class="col-md-2 control-label">Repeat password:</label>
+            <label asp-for="RepeatedPassword" class="col-md-2 control-label">Repeat password:</label>
             <div class="col-md-4">
-                <input type="password" id="RepeatedPassword" name="RepeatedPassword" class="form-control" />
+                <input asp-for="RepeatedPassword" type="password" class="form-control" />
+                <span asp-validation-for="RepeatedPassword"></span>
             </div>
         </div>
         <div class="form-group">
-            <label for="Name" class="col-md-2 control-label">Name:</label>
+            <label asp-for="Name" class="col-md-2 control-label">Name:</label>
             <div class="col-md-4">
-                <input type="text" id="Name" name="Name" class="form-control" />
+                <input asp-for="Name" type="text" class="form-control" />
+                <span asp-validation-for="Name"></span>
             </div>
         </div>
         <div class="form-group">
-            <label for="Surname" class="col-md-2 control-label">Surname:</label>
+            <label asp-for="Surname" class="col-md-2 control-label">Surname:</label>
             <div class="col-md-4">
-                <input type="text" id="Surname" name="Surname" class="form-control" />
+                <input asp-for="Surname" type="text" class="form-control" />
+                <span asp-validation-for="Surname"></span>
             </div>
         </div>
         <div class="form-group">
-            <label for="DateOfBirth" class="col-md-2 control-label">Date of birth:</label>
+            <label asp-for="DateOfBirth" class="col-md-2 control-label">Date of birth:</label>
             <div class="col-md-4">
-                <input type="datetime" id="DateOfBirth" name="DateOfBirth" class="form-control" />
+                <input asp-for="DateOfBirth" type="datetime" class="form-control" />
+                <span asp-validation-for="DateOfBirth"></span>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
