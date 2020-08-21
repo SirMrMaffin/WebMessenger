@@ -1,6 +1,4 @@
-using System;
-
-namespace WebMessengerMVC.Models
+namespace WebMessengerMVC.ViewModels
 {
     public class ErrorViewModel
     {
