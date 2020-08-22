@@ -13,6 +13,7 @@ namespace WebMessengerMVC.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public object Request { get; internal set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
