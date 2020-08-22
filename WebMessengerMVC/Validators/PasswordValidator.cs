@@ -11,22 +11,15 @@ namespace WebMessengerMVC.Validators
         public PasswordValidator(string password, string repeatedPassword)
         {
             this.password = password;
+
             this.repeatedPassword = repeatedPassword;
         }
         public bool Validate()
         {
-            if (password != repeatedPassword)
-            {
-                return false;
-            }
-            else if (password == repeatedPassword)
-            {
+            if (password == repeatedPassword)
                 return true;
-            }
             else
-            {
-                throw new Exception("Unable to validate");
-            }
+                return false;
         }
     }
 }

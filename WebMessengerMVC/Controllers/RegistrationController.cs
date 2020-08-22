@@ -10,9 +10,12 @@ namespace WebMessengerMVC.Controllers
     public class RegistrationController : Controller
     {
         private readonly MessengerContext _context;
-        public RegistrationController(MessengerContext context)
+        private readonly PasswordHasher _encoder;
+
+        public RegistrationController(MessengerContext context, PasswordHasher encoder)
         {
             _context = context;
+            _encoder = encoder;
         }
 
         public IActionResult Index()
@@ -27,7 +30,7 @@ namespace WebMessengerMVC.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var hashedPassword = new ASCIIEncoder().Encode(model.Password);
+                    var hashedPassword = _encoder.Encode(model.Password);
 
                     _context.Users.Add(new User
                     {
@@ -46,9 +49,9 @@ namespace WebMessengerMVC.Controllers
                     return View(model);
                 }
                 
-            } catch (Exception e)
+            } catch
             {
-                return View("FailedRegistration" + e.Message);
+                return View("FailedRegistration");
             }
         }
     }
