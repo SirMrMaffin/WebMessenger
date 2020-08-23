@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebMessengerMVC.Data;
+using WebMessengerMVC.Encoders;
 
 namespace WebMessengerMVC
 {
@@ -23,6 +24,8 @@ namespace WebMessengerMVC
             services.AddControllersWithViews();
             services.AddDbContext<MessengerContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MessenderDbConnection")));
+
+            services.AddTransient<PasswordHasher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
