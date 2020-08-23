@@ -14,6 +14,6 @@ namespace WebMessengerMVC.Validators
             this.repeatedPassword = repeatedPassword;
         }
 
-        public bool Validate() => (password == repeatedPassword);
+        public bool Validate() => password == repeatedPassword;
     }
 }

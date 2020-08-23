@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using WebMessengerMVC.Data;
 using WebMessengerMVC.Encoders;
 using WebMessengerMVC.Models;
@@ -9,11 +10,12 @@ namespace WebMessengerMVC.Controllers
     public class RegistrationController : Controller
     {
         private readonly MessengerContext _context;
-        private readonly PasswordHasher _hasher = new PasswordHasher();
+        private readonly PasswordHasher _hasher;
 
-        public RegistrationController(MessengerContext context)
+        public RegistrationController(MessengerContext context, PasswordHasher hasher)
         {
             _context = context;
+            _hasher = hasher;
         }
 
         public IActionResult Index()
