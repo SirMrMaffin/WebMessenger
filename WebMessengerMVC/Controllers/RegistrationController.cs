@@ -11,9 +11,12 @@ namespace WebMessengerMVC.Controllers
     public class RegistrationController : Controller
     {
         private readonly MessengerContext _context;
-        public RegistrationController(MessengerContext context)
+        private readonly PasswordHasher _hasher;
+
+        public RegistrationController(MessengerContext context, PasswordHasher hasher)
         {
             _context = context;
+            _hasher = hasher;
         }
 
         [HttpGet]
@@ -31,7 +34,7 @@ namespace WebMessengerMVC.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var hashedPassword = new ASCIIEncoder().Encode(model.Password);
+                    var hashedPassword = _hasher.Encode(model.Password);
 
                     _context.Users.Add(new User
                     {

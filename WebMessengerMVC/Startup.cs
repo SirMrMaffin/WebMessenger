@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebMessengerMVC.Data;
+using WebMessengerMVC.Encoders;
 
 namespace WebMessengerMVC
 {
@@ -31,6 +32,9 @@ namespace WebMessengerMVC
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/Index");
                 });
             services.AddControllersWithViews();
+                options.UseSqlServer(Configuration.GetConnectionString("MessenderDbConnection")));
+
+            services.AddSingleton<PasswordHasher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,20 +13,7 @@ namespace WebMessengerMVC.Validators
             this.password = password;
             this.repeatedPassword = repeatedPassword;
         }
-        public bool Validate()
-        {
-            if (password != repeatedPassword)
-            {
-                return false;
-            }
-            else if (password == repeatedPassword)
-            {
-                return true;
-            }
-            else
-            {
-                throw new Exception("Unable to validate");
-            }
-        }
+
+        public bool Validate() => password == repeatedPassword;
     }
 }
