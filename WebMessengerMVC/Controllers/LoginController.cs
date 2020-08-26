@@ -35,7 +35,7 @@ namespace WebMessengerMVC.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var hashedPassword = new ASCIIEncoder().Encode(model.Password);
+                    var hashedPassword = new PasswordHasher().Encode(model.Password);
                     var user = _context.Users.Single(x => x.Login == model.Login);
 
                     if (new PasswordValidator(hashedPassword, user.Password).Validate())

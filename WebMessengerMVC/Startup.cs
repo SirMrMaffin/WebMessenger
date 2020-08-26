@@ -24,7 +24,16 @@ namespace WebMessengerMVC
         {
             services.AddControllersWithViews();
             services.AddDbContext<MessengerContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("MessenderDbConnection")));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Login/Index");
+                });
+            services.AddControllersWithViews();
+
+            services.AddSingleton<PasswordHasher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
