@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using WebMessengerMVC.Data;
 using WebMessengerMVC.Encoders;
 using WebMessengerMVC.Models;
@@ -18,15 +19,18 @@ namespace WebMessengerMVC.Controllers
             _hasher = hasher;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
         
         [HttpPost]
-        public IActionResult Index(RegisterUserViewModel model)
+        public async Task<IActionResult> Index(RegisterUserViewModel model)
         {
-            try
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Login == model.Login);
+
+            if (user == null)
             {
                 if (ModelState.IsValid)
                 {
@@ -42,17 +46,15 @@ namespace WebMessengerMVC.Controllers
                     });
                     _context.SaveChanges();
 
-                    return View("SuccessfulRegistration");
+                    return RedirectToAction("Index", "Login");
                 }
                 else
                 {
-                    return View(model);
+                    ModelState.AddModelError("", "Incorrect password");
                 }
-                
-            } catch
-            {
-                return View("FailedRegistration");
             }
+
+            return View(model);
         }
     }
 }
